@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -9,6 +7,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    volumes:
+      - zookeeper_data:/var/lib/zoo/data
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -22,3 +22,32 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+  redis:
+    image: redis:latest
+    container_name: my-redis-instance
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis/data
+
+  db:
+    image: postgres:15-alpine # Specifies the PostgreSQL image and version
+    restart: always # Ensures the container restarts if it stops
+    environment:
+      POSTGRES_USER: your_user # Defines the database user
+      POSTGRES_PASSWORD: your_password # Defines the password for the user
+      POSTGRES_DB: your_database # Defines the default database name
+    ports:
+      - "5432:5432" # Maps host port 5432 to container port 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persists data using a named volume
+
+volumes:
+  db_data:
+  redis_data:
+  kafka_data:
+  zookeeper_data:
