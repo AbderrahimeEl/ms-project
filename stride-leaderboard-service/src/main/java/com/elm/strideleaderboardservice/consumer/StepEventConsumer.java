@@ -15,14 +15,15 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 
 @Component
 public class StepEventConsumer {
-    private RedisTemplate<String, Object> redisTemplate;
+    public StepEventConsumer(StepEventRepository stepEventRepository, RedisTemplate<String, String> redisTemplate) {
+        this.stepEventRepository = stepEventRepository;
+        this.redisTemplate = redisTemplate;
+    }
+
+    private RedisTemplate<String, String> redisTemplate;
     private StepEventRepository stepEventRepository;
 
     @KafkaListener(topics = "my-topic", groupId = "leaderboard-group")

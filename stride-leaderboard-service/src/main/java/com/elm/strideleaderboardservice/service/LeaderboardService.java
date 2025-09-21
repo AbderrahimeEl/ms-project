@@ -4,9 +4,6 @@ import com.elm.strideleaderboardservice.model.DailyStepTotal;
 import com.elm.strideleaderboardservice.model.LeaderboardEntry;
 import com.elm.strideleaderboardservice.repository.StepEventRepository;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -19,11 +16,10 @@ import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
 @Service
 public class LeaderboardService {
+
+
 
     private RedisTemplate<String, String> redisTemplate;
     private StepEventRepository stepEventRepository;
