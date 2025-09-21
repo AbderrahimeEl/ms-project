@@ -35,16 +35,16 @@ services:
       - redis_data:/var/lib/redis/data
 
   db:
-    image: postgres:15-alpine # Specifies the PostgreSQL image and version
-    restart: always # Ensures the container restarts if it stops
+    image: postgres:15-alpine
+    restart: always
     environment:
-      POSTGRES_USER: your_user # Defines the database user
-      POSTGRES_PASSWORD: your_password # Defines the password for the user
-      POSTGRES_DB: your_database # Defines the default database name
+      POSTGRES_USER: test-user
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: stride-db
     ports:
-      - "5432:5432" # Maps host port 5432 to container port 5432
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data # Persists data using a named volume
+      - db_data:/var/lib/postgresql/data
 
 volumes:
   db_data:

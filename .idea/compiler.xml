@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="webhook-service" />
+        <module name="stride-leaderboard-service" />
         <module name="simulator" />
       </profile>
     </annotationProcessing>

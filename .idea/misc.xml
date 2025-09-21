@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/webhook-service/pom.xml" />
         <option value="$PROJECT_DIR$/simulator/pom.xml" />
+        <option value="$PROJECT_DIR$/stride-leaderboard-service/pom.xml" />
       </list>
     </option>
   </component>
