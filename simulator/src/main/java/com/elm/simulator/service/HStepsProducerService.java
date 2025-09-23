@@ -1,6 +1,7 @@
 package com.elm.simulator.service;
 
 import com.elm.simulator.model.HeartrateEvent;
+import com.elm.simulator.model.StepEvent;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -8,22 +9,22 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class HeartrateProducerService {
-
-    private final KafkaTemplate<String, HeartrateEvent> kafkaTemplate;
-    private Iterator<HeartrateEvent> eventIterator;
-
-    @Value("${dataset.sec_heartrates}")
+public class HStepsProducerService {
+    private final KafkaTemplate<String, StepEvent> kafkaTemplate;
+    private Iterator<StepEvent> eventIterator;
+    @Value("${dataset.h_steps}")
     private String filePath;
 
-    public HeartrateProducerService(KafkaTemplate<String, HeartrateEvent> kafkaTemplate) {
+    public HStepsProducerService(KafkaTemplate<String, StepEvent> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
     @PostConstruct
@@ -33,11 +34,11 @@ public class HeartrateProducerService {
     private void loadCsv(String csvFilePath) {
         try {
             ClassPathResource resource = new ClassPathResource(csvFilePath);
-            List<HeartrateEvent> events = Files.lines(resource.getFile().toPath())
+            List<StepEvent> events = Files.lines(resource.getFile().toPath())
                     .skip(1)
                     .map(line -> {
                         String[] parts = line.split(",");
-                        return new HeartrateEvent(parts[0], parts[1], Integer.parseInt(parts[2]));
+                        return new StepEvent(parts[0], parts[1], Integer.parseInt(parts[2]));
                     })
                     .collect(Collectors.toList());
 
@@ -47,10 +48,10 @@ public class HeartrateProducerService {
         }
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 10000)
     public void sendNextEvent() {
         if (eventIterator.hasNext()) {
-            HeartrateEvent event = eventIterator.next();
+            StepEvent event = eventIterator.next();
             kafkaTemplate.send("heartrate-events", event.getUserId(), event);
             System.out.println("Sent: " + event);
         }
