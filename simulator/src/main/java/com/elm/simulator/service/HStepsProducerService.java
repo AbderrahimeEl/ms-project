@@ -52,7 +52,7 @@ public class HStepsProducerService {
     public void sendNextEvent() {
         if (eventIterator.hasNext()) {
             StepEvent event = eventIterator.next();
-            kafkaTemplate.send("heartrate-events", event.getUserId(), event);
+            kafkaTemplate.send("hourly-steps-events", event.getUserId(), event);
             System.out.println("Sent: " + event);
         }
     }

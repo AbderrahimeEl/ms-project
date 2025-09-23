@@ -50,7 +50,7 @@ public class MinStepsProducerService {
     public void sendNextEvent() {
         if (eventIterator.hasNext()) {
             StepEvent event = eventIterator.next();
-            kafkaTemplate.send("heartrate-events", event.getUserId(), event);
+            kafkaTemplate.send("min-steps-events", event.getUserId(), event);
             System.out.println("Sent: " + event);
         }
     }
