@@ -5,8 +5,19 @@ grpc:
       negotiationType: plaintext
 
 server:
-  port: 8084
+  port: 8083
 
 spring:
   application:
     name: dashboard-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+springdoc:
+  swagger-ui.urls[0]:
+    url: /dashboard-service/v3/api-docs
+    name: Dashboard Service API

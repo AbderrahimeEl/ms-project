@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: ingestion-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: leaderboard-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+# Redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stride-db
+    username: test-user
+    password: 123123
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+
+#gRPC
+grpc:
+  serverport: 9090
+
+# Server
+server:
+  port: 8082
+
+# Logging
+logging:
+  level.com.stride.leaderboard: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
