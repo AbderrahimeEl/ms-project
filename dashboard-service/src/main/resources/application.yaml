@@ -1,0 +1,12 @@
+grpc:
+  client:
+    ingestion-service:
+      address: static://localhost:9090
+      negotiationType: plaintext
+
+server:
+  port: 8084
+
+spring:
+  application:
+    name: dashboard-service
