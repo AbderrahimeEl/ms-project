@@ -8,8 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="webhook-service" />
-        <module name="stride-leaderboard-service" />
         <module name="simulator" />
+        <module name="proto-definitions" />
+        <module name="dashboard-service" />
+        <module name="ingestion-service" />
       </profile>
     </annotationProcessing>
   </component>

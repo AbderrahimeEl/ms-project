@@ -6,6 +6,9 @@
         <option value="$PROJECT_DIR$/webhook-service/pom.xml" />
         <option value="$PROJECT_DIR$/simulator/pom.xml" />
         <option value="$PROJECT_DIR$/stride-leaderboard-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ingestion-service/pom.xml" />
+        <option value="$PROJECT_DIR$/proto-definitions/pom.xml" />
+        <option value="$PROJECT_DIR$/dashboard-service/pom.xml" />
       </list>
     </option>
   </component>

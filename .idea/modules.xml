@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/leaderboard_ms.iml" filepath="$PROJECT_DIR$/leaderboard_ms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webhook-service/webhook-service.iml" filepath="$PROJECT_DIR$/webhook-service/webhook-service.iml" />
     </modules>
   </component>
 </project>
