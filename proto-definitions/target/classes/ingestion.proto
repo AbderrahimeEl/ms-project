@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package com.elm;
+
+option java_multiple_files = true;
+option java_package = "com.elm.proto";
+option java_outer_classname = "DashboardProto";
+
+service DashboardService {
+  // 1. Main Dashboard View - Real-time overview
+  rpc GetDashboardOverview(DashboardRequest) returns (DashboardOverview);
+
+  // 2. Today's Activity Breakdown - Charts data
+  rpc GetTodayActivityCharts(DashboardRequest) returns (TodayActivityCharts);
+
+  // 3. Weekly Trends
+  rpc GetWeeklyTrends(WeeklyRequest) returns (WeeklyTrends);
+}
+
+// ==================== REQUESTS ====================
+message DashboardRequest {
+  string user_id = 1;
+}
+
+message WeeklyRequest {
+  string user_id = 1;
+  string week_start = 2;  // Format: "yyyy-MM-dd"
+}
+
+// ==================== 1. MAIN DASHBOARD VIEW ====================
+message DashboardOverview {
+  string user_id = 1;
+  string date = 2;  // Today's date "yyyy-MM-dd"
+  string last_updated = 3;
+
+  // Real-time metrics
+  RealTimeMetrics real_time = 4;
+  SleepSummary sleep_today = 5;
+  ActivitySummary activity_today = 6;
+}
+
+message RealTimeMetrics {
+  int32 current_heart_rate = 1;    // Latest heart rate
+  int32 today_steps = 2;           // Total steps today
+  int32 active_minutes = 3;        // Active minutes today
+  int32 calories_burned = 4;       // Optional: for future
+  int32 floors_climbed = 5;        // Optional: for future
+}
+
+message SleepSummary {
+  int32 total_minutes = 1;         // Total time in bed
+  int32 asleep_minutes = 2;        // Deep sleep
+  int32 restless_minutes = 3;      // Light sleep/Restless
+  int32 awake_minutes = 4;         // Awake time
+  double efficiency_percent = 5;   // Sleep quality (asleep/total)
+  string current_session = 6;      // Current sleep session ID if sleeping
+}
+
+message ActivitySummary {
+  int32 steps_goal = 1;            // Daily steps goal
+  int32 steps_progress = 2;        // Progress percentage
+  int32 active_goal = 3;           // Active minutes goal
+  int32 active_progress = 4;       // Progress percentage
+  int32 calories_goal = 5;         // Calories goal
+  int32 calories_progress = 6;     // Progress percentage
+}
+
+// ==================== 2. TODAY'S ACTIVITY CHARTS ====================
+message TodayActivityCharts {
+  string user_id = 1;
+  string date = 2;
+
+  // Steps Chart Data (Hourly breakdown)
+  StepsChartData steps_chart = 3;
+
+  // Heart Rate Chart Data (Throughout the day)
+  HeartRateChartData heart_rate_chart = 4;
+
+  // Sleep Timeline Chart
+  SleepTimelineChart sleep_chart = 5;
+}
+
+message StepsChartData {
+  repeated HourlySteps hourly_steps = 1;      // For bar chart
+  repeated MinuteSteps minute_steps = 2;      // For detailed line chart
+  int32 daily_total = 3;
+  int32 daily_goal = 4;
+}
+
+message HourlySteps {
+  string hour = 1;        // "00", "01", ... "23"
+  int32 steps = 2;
+  int32 active_minutes = 3;
+}
+
+message MinuteSteps {
+  string time = 1;        // "08:30", "08:31", etc.
+  int32 steps = 2;
+}
+
+message HeartRateChartData {
+  repeated HeartRateSample samples = 1;      // Minute-level samples
+  int32 daily_average = 2;
+  int32 daily_min = 3;
+  int32 daily_max = 4;
+  int32 resting_heart_rate = 5;
+}
+
+message HeartRateSample {
+  string time = 1;        // "08:30", "08:31", etc.
+  int32 heart_rate = 2;
+}
+
+message SleepTimelineChart {
+  string session_id = 1;
+  repeated SleepStage stages = 2;           // 5-minute intervals
+  string start_time = 3;
+  string end_time = 4;
+  double efficiency_percent = 5;
+}
+
+message SleepStage {
+  string time_interval = 1;  // "22:30", "22:35", etc.
+  string stage = 2;          // "asleep", "restless", "awake"
+  int32 duration_minutes = 3;
+}
+
+// ==================== 3. WEEKLY TRENDS ====================
+message WeeklyTrends {
+  string user_id = 1;
+  string week_start = 2;
+
+  // Weekly Steps Trends
+  StepsTrends steps_trends = 3;
+
+  // Weekly Heart Rate Trends
+  HeartRateTrends heart_rate_trends = 4;
+
+  // Weekly Sleep Trends
+  SleepTrends sleep_trends = 5;
+}
+
+message StepsTrends {
+  repeated DailySteps daily_steps = 1;
+  int32 weekly_total = 2;
+  int32 weekly_average = 3;
+  int32 best_day_steps = 4;
+  string best_day_date = 5;
+}
+
+message DailySteps {
+  string date = 1;        // "yyyy-MM-dd"
+  int32 steps = 2;
+  bool goal_achieved = 3;
+  int32 active_minutes = 4;
+}
+
+message HeartRateTrends {
+  repeated DailyHeartRate daily_heart_rates = 1;
+  int32 weekly_avg_resting = 2;
+  int32 weekly_avg_daily = 3;
+}
+
+message DailyHeartRate {
+  string date = 1;
+  int32 avg_heart_rate = 2;
+  int32 min_heart_rate = 3;
+  int32 max_heart_rate = 4;
+  int32 resting_heart_rate = 5;
+}
+
+message SleepTrends {
+  repeated DailySleep daily_sleep = 1;
+  double weekly_avg_efficiency = 2;
+  int32 weekly_avg_duration = 3;  // in minutes
+  string best_sleep_night = 4;    // date with best efficiency
+}
+
+message DailySleep {
+  string date = 1;
+  int32 total_minutes = 2;
+  int32 asleep_minutes = 3;
+  int32 restless_minutes = 4;
+  int32 awake_minutes = 5;
+  double efficiency_percent = 6;
+}
