@@ -37,7 +37,7 @@ public class HeartrateProducerService {
                     .skip(1)
                     .map(line -> {
                         String[] parts = line.split(",");
-                        return new HeartrateEvent(parts[0], parts[1], Integer.parseInt(parts[2]));
+                        return new HeartrateEvent("123", parts[1], Integer.parseInt(parts[2]));
                     })
                     .collect(Collectors.toList());
 

@@ -8,10 +8,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +35,7 @@ public class MinStepsProducerService {
                     .skip(1)
                     .map(line -> {
                         String[] parts = line.split(",");
-                        return new StepEvent(parts[0], parts[1], Integer.parseInt(parts[2]));
+                        return new StepEvent("123", parts[1], Integer.parseInt(parts[2]));
                     })
                     .collect(Collectors.toList());
 
@@ -46,7 +44,7 @@ public class MinStepsProducerService {
             throw new RuntimeException("Error reading CSV file", e);
         }
     }
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 60000)
     public void sendNextEvent() {
         if (eventIterator.hasNext()) {
             StepEvent event = eventIterator.next();
