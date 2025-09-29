@@ -40,7 +40,7 @@ public class HeartrateConsumer {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy h:mm:ss a", Locale.US);
             LocalDateTime dateTime = LocalDateTime.parse(timestamp, formatter);
-
+            System.out.println("dateTime: " + dateTime);
             // Save raw event to PostgreSQL
             hrRepo.save(new HeartrateEventEntity(null, userId, dateTime, heartrate));
 
@@ -64,8 +64,9 @@ public class HeartrateConsumer {
             redisTemplate.opsForList().rightPush(statsKey, String.valueOf(heartrate));
             redisTemplate.expire(statsKey, 48, TimeUnit.HOURS);
 
-            String avgKey = "heartrate_avg:" + userId + ":" + today;
-            redisTemplate.opsForList().rightPush(avgKey, String.valueOf(heartrate));
+            String avgKey = "heartrate:avg:" + userId + ":" + today;
+            redisTemplate.opsForHash().increment(avgKey, "sum", heartrate);
+            redisTemplate.opsForHash().increment(avgKey, "count", 1);
             redisTemplate.expire(avgKey, 48, TimeUnit.HOURS);
 
         } catch (Exception e) {
