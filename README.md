@@ -1,6 +1,5 @@
 # Stride Leaderboard Microservices System
 
----
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
@@ -9,10 +8,9 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![gRPC](https://img.shields.io/badge/gRPC-000?style=for-the-badge&logo=google&logoColor=white)
 
-A **microservices-based health tracking system** built with Spring Boot.
-It simulates smartwatch data (steps, heart rate, sleep) using **Kaggle Fitbit data** , streams it through **Kafka**, processes it with microservices, and provides **real-time & historical analytics** through a dashboard.
-o
----
+A microservices-based health tracking system built with Spring Boot.
+It simulates smartwatch data (steps, heart rate, sleep) using Kaggle Fitbit data , streams it through Kafka, processes it with microservices, and provides real-time & historical analytics through a dashboard.
+
 
 ## 🏗️ Architecture Overview
 
@@ -145,7 +143,6 @@ cd proto-definitions
 ## 🔮 In Progress
 
 * [ ] Authentication & authorization
-* [ ] Real-time notifications
 * [ ] Advanced analytics (weekly/monthly trends)
 * [ ] Distributed tracing
 * [ ] Monitoring & alerting
