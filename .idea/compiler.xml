@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="simulator" />
+        <module name="config-service" />
         <module name="proto-definitions" />
         <module name="dashboard-service" />
         <module name="gateway-service" />

@@ -1,24 +1,5 @@
 spring:
   application:
     name: simulator
-
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      topic: steps-topic
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all
-
-dataset:
-  sec_heartrates:  data/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/heartrate_seconds_merged.csv
-  min_steps:  data/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/minuteStepsNarrow_merged.csv
-  sleep_data: data/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/minuteSleep_merged.csv
-
-server:
-  port: 8081
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+  config:
+    import: optional:configserver:http://localhost:8888
